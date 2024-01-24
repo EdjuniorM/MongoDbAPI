@@ -1,11 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Joi = require('joi');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swagger');
+
 
 const app = express();
 const port = 9898
 
 app.use(express.json());
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 const filmSchema = new mongoose.Schema({
     name: String,

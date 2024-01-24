@@ -1,0 +1,150 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "MongoDB API",
+      "version": "1.0.0",
+      "description": "API para interação com MongoDB usando Express e Joi para validação."
+    },
+    "servers": [
+      {
+        "url": "http://localhost:9898",
+        "description": "Servidor local"
+      }
+    ],
+    "paths": {
+      "/save": {
+        "post": {
+          "summary": "Cria um novo filme",
+          "tags": ["Film"],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Film"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Filme criado com sucesso",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Film"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/": {
+        "get": {
+          "summary": "Obtém todos os filmes",
+          "tags": ["Film"],
+          "responses": {
+            "200": {
+              "description": "Lista de filmes recuperada com sucesso",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Film"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/{id}": {
+        "put": {
+          "summary": "Atualiza um filme pelo ID",
+          "tags": ["Film"],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "description": "ID do filme",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Film"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Filme atualizado com sucesso",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Film"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "summary": "Deleta um filme pelo ID",
+          "tags": ["Film"],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "description": "ID do filme",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Filme deletado com sucesso",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Film"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Film": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "imageUrl": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        }
+      }
+    }
+  }
